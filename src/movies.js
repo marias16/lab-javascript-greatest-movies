@@ -27,9 +27,12 @@ function scoresAverage(moviesArray) {
 // Iteration 4: Drama movies - Get the average of Drama Movies
 function dramaMoviesScore(moviesArray) {
     const dramaMovies = moviesArray.filter((movie) => movie.score && movie.genre.includes('Drama'));
+    if (dramaMovies.length === 0) {
+        return 0;
+    }
     const sumDrama = dramaMovies.reduce((acc, current) => acc +current.score, 0);
-    const average =
-    return (;
+    const average = Math.floor((sumDrama / dramaMovies.length) * 100) / 100;
+    return average;
 }
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
