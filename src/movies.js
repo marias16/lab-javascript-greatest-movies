@@ -60,7 +60,30 @@ function orderAlphabetically(moviesArray) {
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
 function turnHoursToMinutes(moviesArray) {
-    
+    let durationArr = moviesArray.map((movie) => movie.duration)
+    durationArr = durationArr.map((duration) => {
+        let sumMins = 0;
+        sumMins = duration[0] * 60;
+        let isNum = (duration[4]) * 1
+        if(duration.length > 2) {
+            if(typeof isNum === 'number') {
+                sumMins += (duration[3] * 10) + duration[4]*1
+            } else {
+                sumMins += duration[3]*1;
+            }
+        }
+        return sumMins;
+    })
+
+    let moviesMin = [...moviesArray];
+    moviesArray.forEach((movie) => {
+        return durationArr.forEach((duration) => {
+          movie.duration = duration;
+        })
+        
+    })
+      
+    return moviesMin;
 }
 
 // BONUS - Iteration 8: Best yearly score average - Best yearly score average
