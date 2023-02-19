@@ -44,13 +44,57 @@ function orderByYear(moviesArray) {
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
 function orderAlphabetically(moviesArray) {
-    let moviesByAlphabet = [...moviesArray].map((movie) => movie = movie.title);
+    let moviesByAlphabet = moviesArray.map((movie) => movie = movie.title);
     moviesByAlphabet = moviesByAlphabet.sort();
     return moviesByAlphabet.slice(0, 20);
 }
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
-function turnHoursToMinutes(moviesArray) {}
+function turnHoursToMinutes(moviesArray) {
+    
+}
 
 // BONUS - Iteration 8: Best yearly score average - Best yearly score average
-function bestYearAvg(moviesArray) {}
+
+function bestYearAvg(moviesArray) {
+    //should return null if it's passed with an empty array
+    if(moviesArray.length === 0) {
+        return null;
+    }
+
+    //get an array of each year, without repetition
+    let arrOfYears = moviesArray.map((movie) => movie.year)
+    arrOfYears.sort();
+    arrOfYears = arrOfYears.filter((year, index, self) => {
+        if (year !== self[index-1]) {
+            return year;
+        } 
+    })
+
+    //get an array of objects, each one with a key value for the year and an array for the score
+    arrOfYears = arrOfYears.map((year) => {
+        return {
+            year: year,
+            score: [],
+        }
+    })
+    
+    //push each score into the corresponding year 
+    arrOfYears.forEach((year) => {
+        moviesArray.forEach((movie) => {
+            if(movie.year === year.year) {
+                year.score.push(movie.score)
+            }
+        });
+    })
+
+    //we get the average score of each year
+    arrOfYears.forEach((year) => {
+        let sumScores = year.score.reduce((acc, current) => acc + current, 0)
+        year.score = Math.floor(sumScores / year.score.length * 10) / 10;
+    })
+
+    arrOfYears.sort((a,b) => b.score-a.score)
+
+    return `The best year was ${arrOfYears[0].year} with an average score of ${arrOfYears[0].score}`
+}
