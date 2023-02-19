@@ -38,16 +38,16 @@ function dramaMoviesScore(moviesArray) {
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
 function orderByYear(moviesArray) {
-    let moviesByYear = [...moviesArray].sort((a,b) => a.title-b.title);
-    moviesByYear.sort((a,b) => {
-        if (a.year > b.year) {
-            return 1
-          } else if (a.year < b.year) {
-            return -1
-          } else {
-            return 0
-          }
-    });
+    moviesArray.sort(function (x, y) {
+        if (x.title > y.title) {
+        return 1;
+        }
+        if (y.title > x.title) {
+        return -1;
+        }
+        return 0;
+        });
+    let moviesByYear = [...moviesArray].sort((a,b) => a.year-b.year);
     return moviesByYear;
 }
 
