@@ -60,10 +60,13 @@ function orderAlphabetically(moviesArray) {
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
 function turnHoursToMinutes(moviesArray) {
-    let durationArr = moviesArray.map((movie) => movie.duration)
-    durationArr = durationArr.map((duration) => {
+    let durationArr = moviesArray.map((movie) => {
+        let duration = movie.duration;
         let sumMins = 0;
+        //we get the hours by multiplying the first char by 60
         sumMins = duration[0] * 60;
+        //we get the minutes if duration length is more than 2. 
+        //if it is we check if the minutes have one or two digits
         let isNum = (duration[4]) * 1
         if(duration.length > 2) {
             if(typeof isNum === 'number') {
@@ -72,18 +75,13 @@ function turnHoursToMinutes(moviesArray) {
                 sumMins += duration[3]*1;
             }
         }
-        return sumMins;
-    })
+        return {
+            ...movie,
+            duration: sumMins,
+        }
+    });
 
-    let moviesMin = [...moviesArray];
-    moviesArray.forEach((movie) => {
-        return durationArr.forEach((duration) => {
-          movie.duration = duration;
-        })
-        
-    })
-      
-    return moviesMin;
+    return durationArr;
 }
 
 // BONUS - Iteration 8: Best yearly score average - Best yearly score average
